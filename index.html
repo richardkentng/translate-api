@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Translate English/Chinese</title>
     <link rel="stylesheet" href="./css/style.css"></link>
     <script src="./js/script.js" defer></script>
 </head>
 <body>
-    <h1>heading 1</h1>
+    <h1>Translate English/Chinese</h1>
+    <form>
+        <label for="english">English:</label>
+        <input id="english" type="text" data-sl="en" required autofocus>
+        <input type="submit" value="translate">
+    </form>
+    <form>
+        <label for="chinese">Chinese:</label>
+        <input id="chinese" type="text" data-sl="zh-CH" required>
+        <input type="submit" value="translate">
+    </form>
 </body>
 </html>
