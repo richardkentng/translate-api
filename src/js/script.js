@@ -1,4 +1,6 @@
-console.log("sanity check");
+console.log("wow");
+
+//test access to netlify function
 
 const englishForm = document.body.querySelector(".english-form");
 const englishInput = document.body.querySelector("input[data-sl='en']");
