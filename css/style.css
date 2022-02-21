@@ -3,9 +3,11 @@
 input,
 button {
   font-size: 15px;
+  padding: 0.5em;
+  border-radius: 0.3em;
+  border: solid black 1px;
 }
 
 body {
-  background-color: rgb(235, 213, 165);
   font-family: "Poppins", sans-serif;
 }
