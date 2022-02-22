@@ -1,12 +1,7 @@
-# [Click here to access the deployed app!](https://cranky-wing-b0bad3.netlify.app/)
+# [Click here for deployed app!](https://cranky-wing-b0bad3.netlify.app/)
+## Translate English text to Chinese text and vice versa!
 
 ![main](./github_images/main.png)
-
-## Users can translate English text to Chinese text and vice versa!
-
-![main](./github_images/loading.png)
-
-I love loading wheels! It informs users that the translation is processing.
 
 # Resources
 
@@ -25,3 +20,12 @@ I love loading wheels! It informs users that the translation is processing.
   - I had a bad development practice: I would hard-code the api secret to test the api. Later, I would rely on memory to remove the api secret before commiting and pushing up. One time, I forgot to remove it, and I commited the api secret! Luckily, I was able to remove the commit via `git reset --soft HEAD~1` before I pushed up, saving me some trouble. Lesson learned!
 - To access data from an axios response, I must access the data property!
   - This sounds rather obvious now that I've typed it out, but it still amazes me how often I've mistakenly tried to use the direct axios response, having forgotten the fact that the data....is actually in the data property!
+
+# Cool little feature: Loading Wheel
+![main](./github_images/loading.png)
+I'm a big advocate of great user experience!  In this case, I just added a simple loading wheel to inform users that their translation is processing!  Otherwise, the user would be discouraged by lack of a quick response, and leave.
+
+# Next steps?
+- learn how to customize url names for netlify, because 'https://cranky-wing-b0bad3.netlify.app/' sounds way too random!
+- limit api requests per user
+- notify users when the api is down (this api only allows about 300 free requests per month)
