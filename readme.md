@@ -5,6 +5,7 @@
 ## Users can translate English text to Chinese text and vice versa!
 
 ![main](./github_images/loading.png)
+
 I love loading wheels! It informs users that the translation is processing.
 
 # Resources
