@@ -1,7 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
+body {
+  margin: 2rem;
+}
+
 form {
-  margin: 1rem 0; 
+  margin: 1rem 0;
 }
 
 label {
@@ -18,4 +22,8 @@ button {
 
 body {
   font-family: "Poppins", sans-serif;
+}
+
+hr {
+  margin-top: 3rem;
 }
