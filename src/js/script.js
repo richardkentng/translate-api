@@ -60,24 +60,19 @@ async function onSubmit(e, text, sourceLan) {
   async function translate(text, sourceLan, targetLan) {
     const requestOptions = {
       method: "GET",
-      url: "https://nlp-translation.p.rapidapi.com/v1/translate",
+      url: "/.netlify/functions/fetch-translation",
       params: {
         text,
         from: sourceLan,
         to: targetLan,
       },
-      headers: {
-        "x-rapidapi-host": "nlp-translation.p.rapidapi.com",
-        "x-rapidapi-key": config.API_SECRET,
-      },
     };
 
     try {
-      //translate text:
       const { data } = await axios.request(requestOptions);
-      const translatedText = data.translated_text[data.to];
-      return translatedText;
+      return data.translatedText;
     } catch (error) {
+      console.error(error);
       return error.toString();
     }
   }
