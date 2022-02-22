@@ -5,7 +5,7 @@
 
 # Resources
 
-- (NLP Translation API)[https://rapidapi.com/gofitech/api/nlp-translation/]
+- [NLP Translation API](https://rapidapi.com/gofitech/api/nlp-translation/)
   - I simply looked up translation apis and used the first one I found that worked. My goal was not to choose the best API but to get acquainted with using APIs. Anyhow, I don't like how this API takes several seconds to translate, there are definitely faster ones.
 
 # Dependencies
