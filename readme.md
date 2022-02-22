@@ -12,7 +12,7 @@
 
 - axios
   - used again inside the netlify function to access the translation API
-  - (I also used axios in the frontend to access the netlify function, but in this case I used a CDN)
+  - (was also used in the frontend to access the netlify function, but via CDN)
 
 # Lessons learned:
 
