@@ -58,18 +58,24 @@ async function onSubmit(e, text, sourceLan) {
   }
 
   async function translate(text, sourceLan, targetLan) {
-    const endpointURL = `https://nlp-translation.p.rapidapi.com/v1/translate?text=${text}&to=${targetLan}&from=${sourceLan}`;
+    const requestOptions = {
+      method: "GET",
+      url: "https://nlp-translation.p.rapidapi.com/v1/translate",
+      params: {
+        text,
+        from: sourceLan,
+        to: targetLan,
+      },
+      headers: {
+        "x-rapidapi-host": "nlp-translation.p.rapidapi.com",
+        "x-rapidapi-key": config.API_SECRET,
+      },
+    };
 
     try {
-      const resRaw = await fetch(endpointURL, {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "nlp-translation.p.rapidapi.com",
-          "x-rapidapi-key": "",
-        },
-      });
-      const res = await resRaw.json();
-      const translatedText = res.translated_text[res.to];
+      //translate text:
+      const { data } = await axios.request(requestOptions);
+      const translatedText = data.translated_text[data.to];
       return translatedText;
     } catch (error) {
       return error.toString();
