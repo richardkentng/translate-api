@@ -27,6 +27,8 @@
 I'm a big advocate of great user experience!  In this case, I just added a simple loading wheel to inform users that their translation is processing!  Otherwise, the user would be discouraged by lack of a quick response, and leave.
 
 # Next steps?
+- allow translations between any two languages -- not just english and chinese!
+- allow users to see a history of their translations via localStorage
 - learn how to customize url names for netlify, because 'https://cranky-wing-b0bad3.netlify.app/' sounds way too random!
 - limit api requests per user
 - notify users when the api is down (this api only allows about 300 free requests per month)
