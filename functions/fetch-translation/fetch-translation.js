@@ -1,17 +1,33 @@
 // Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
+
+const axios = require("axios");
+
 const handler = async (event) => {
   try {
-    const subject = event.queryStringParameters.name || 'World'
+    const requestOptions = {
+      method: "GET",
+      url: "https://nlp-translation.p.rapidapi.com/v1/translate",
+      params: event.queryStringParameters,
+      headers: {
+        "x-rapidapi-host": "nlp-translation.p.rapidapi.com",
+        "x-rapidapi-key": process.env.API_SECRET,
+      },
+    };
+
+    const { data } = await axios.request(requestOptions);
+    const translatedText = data.translated_text[data.to];
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Hello ${subject}` }),
-      // // more keys you can return:
-      // headers: { "headerName": "headerValue", ... },
-      // isBase64Encoded: true,
-    }
+      body: JSON.stringify({
+        translatedText,
+      }),
+    };
   } catch (error) {
-    return { statusCode: 500, body: error.toString() }
+    return {
+      statusCode: 500,
+      body: JSON.stringify(error),
+    };
   }
-}
+};
 
-module.exports = { handler }
+module.exports = { handler };
