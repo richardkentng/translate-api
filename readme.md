@@ -1,5 +1,5 @@
 # [Click here for the deployed app!](https://cranky-wing-b0bad3.netlify.app/)
-## Translate English text to Chinese text and vice versa!
+## This api-implementation translates English text to Chinese text and vice versa!
 
 ![main](./github_images/main.png)
 
