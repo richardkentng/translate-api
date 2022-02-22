@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/richardkentng/translate-api/issues"
   },
-  "homepage": "https://github.com/richardkentng/translate-api#readme"
+  "homepage": "https://github.com/richardkentng/translate-api#readme",
+  "dependencies": {
+    "axios": "^0.26.0"
+  }
 }
