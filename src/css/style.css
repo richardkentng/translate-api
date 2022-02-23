@@ -44,4 +44,21 @@ hr {
   margin-top: 3rem;
 }
 
+h2 {
+  margin: 2rem 0;
+}
+
+.translations {
+  display: flex;
+  flex-direction: column;
+  background-color: silver;
+  border-radius: 0.5em;
+}
+.translations .translation {
+  background-color: white;
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 0.5rem;
+}
+
 /*# sourceMappingURL=style.css.map */
