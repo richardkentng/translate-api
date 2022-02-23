@@ -1,4 +1,5 @@
 # [Click here for the deployed app!](https://cranky-wing-b0bad3.netlify.app/)
+
 ## This api-implementation translates English text to Chinese text and vice versa!
 
 ![main](./github_images/main.png)
@@ -22,11 +23,14 @@
   - This sounds rather obvious now that I've typed it out, but it still amazes me how often I've mistakenly tried to use the direct axios response, having forgotten the fact that the data....is actually in the data property!
 
 # Cool Feature
+
 ![main](./github_images/loading.png)
 
-I'm a big advocate of great user experience!  In this case, I just added a simple loading wheel to inform users that their translation is processing!  Otherwise, the user would be discouraged by lack of a quick response, and leave.
+I'm a big advocate of great user experience! In this case, I just added a simple loading wheel to inform users that their translation is processing! Otherwise, the user would be discouraged by lack of a quick response, and leave.
 
 # Next Steps?
+
+- change the input tag to a textarea tag so that more text can be shown!
 - allow translations between any two languages -- not just english and chinese!
 - allow users to see a history of their translations via localStorage
 - learn how to customize url names for netlify, because 'https://cranky-wing-b0bad3.netlify.app/' sounds way too random!
