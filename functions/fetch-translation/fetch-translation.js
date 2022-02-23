@@ -15,12 +15,9 @@ const handler = async (event) => {
     };
 
     const { data } = await axios.request(requestOptions);
-    const translatedText = data.translated_text[data.to];
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        translatedText,
-      }),
+      body: JSON.stringify(data),
     };
   } catch (error) {
     return {
