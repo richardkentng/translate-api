@@ -36,10 +36,11 @@ I'm a big advocate of great user experience! In this case, I just added a simple
 
 # Next Steps?
 
+- make sure site is responsive
 - change the input tag to a textarea tag so that more text can be shown!
 - ~~allow users to see a history of their translations via localStorage~~
-  - allow users to delete items from translation history!
   - limit history to 10 items?
+  - allow users to delete items from translation history!
 - allow translations between any two languages -- not just english and chinese!
 - learn how to customize url names for netlify, because 'https://cranky-wing-b0bad3.netlify.app/' sounds way too random!
 - limit api requests per user
