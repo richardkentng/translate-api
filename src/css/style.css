@@ -48,13 +48,19 @@ h2 {
   margin: 2rem 0;
 }
 
-section.translation-history .translations {
+.translation-history .max-items {
+  color: silver;
+  font-size: 0.5em;
+  font-weight: 300;
+  margin-left: 10px;
+}
+.translation-history .translations {
   display: flex;
   flex-direction: column;
   background-color: silver;
   border-radius: 0.5em;
 }
-section.translation-history .translations .translation {
+.translation-history .translations .translation {
   background-color: white;
   padding: 1em;
   margin: 0.5em;
