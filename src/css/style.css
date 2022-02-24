@@ -48,17 +48,21 @@ h2 {
   margin: 2rem 0;
 }
 
-.translations {
+section.translation-history .translations {
   display: flex;
   flex-direction: column;
   background-color: silver;
   border-radius: 0.5em;
 }
-.translations .translation {
+section.translation-history .translations .translation {
   background-color: white;
   padding: 1em;
   margin: 0.5em;
   border-radius: 0.5rem;
+}
+
+.display-none {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */
