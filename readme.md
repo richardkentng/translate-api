@@ -1,4 +1,4 @@
-# [Click here for the deployed app!](https://cranky-wing-b0bad3.netlify.app/)
+# [Click here for the deployed app!](https://translate-api.netlify.app/)
 
 ## This api-implementation translates English text to Chinese text and vice versa!
 
