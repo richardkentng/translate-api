@@ -2,6 +2,10 @@ console.log("sanity check");
 
 displayTranslations(getTranslations());
 
+//listen for clicks (will check if the click originated from a delete button)
+const translations = document.body.querySelector(".translations");
+translations.addEventListener("click", deleteTranslationHistoryItem);
+
 const englishForm = document.body.querySelector(".english-form");
 const englishInput = document.body.querySelector("input[data-sl='en']");
 const englishTranslateBtn = englishForm.querySelector("button[type='submit']");
@@ -43,7 +47,7 @@ async function onSubmit(e, text, sourceLan) {
   displayTranslations(addTranslationToLocalStorage(data));
 
   //------------------------------------------------------------------------
-  //**************************  FUNCTIONS  *********************************
+  //**************************  FUNCTIONS (for core api functionality) *********************************
   //------------------------------------------------------------------------
 
   function determineThe_targetLanguague_inputElement_translateButtons() {
@@ -133,6 +137,8 @@ function displayTranslations(translations) {
     <div class="translation">
       <p>${t.originalText}</p>
       <p>${t.translatedText}</p>
+      <!-- the data attribute describes this button as a delete button for later use: -->
+      <button data-delete-translation-history-item>delete</button>
     </div>
     `;
     })
@@ -145,4 +151,44 @@ function displayTranslations(translations) {
 function getTranslations() {
   let translations = localStorage.getItem("translations") || "[]";
   return JSON.parse(translations);
+}
+
+//---------------------------------------------------------------------------------
+//********** MORE FUNCTIONS (to DELETE an item from translation history)  ************
+//---------------------------------------------------------------------------------
+
+function deleteTranslationHistoryItem(e) {
+  //ensure that delete button was clicked:
+  if (!e.target.dataset.hasOwnProperty("deleteTranslationHistoryItem")) return;
+
+  //update local storage by deleting item
+  let translations = getTranslations();
+  const indexToDelete = getIndexTranslationItem(
+    getParentContainerWithClassOfTranslation()
+  );
+  translations = translations.filter((item, i) => i !== indexToDelete);
+  localStorage.setItem("translations", JSON.stringify(translations));
+
+  //show remaining translation history items
+  displayTranslations(translations);
+
+  function getParentContainerWithClassOfTranslation() {
+    let walker = e.target.parentElement;
+    while (!walker.classList.contains("translation")) {
+      walker = walker.parentElement;
+    }
+    return walker;
+  }
+
+  function getIndexTranslationItem(itemToDelete) {
+    const translations = document.body.querySelectorAll(".translation");
+    let index;
+    for (let i = 0; i < translations.length; i++) {
+      if (translations[i] === itemToDelete) {
+        index = i;
+        break;
+      }
+    }
+    return index;
+  }
 }
