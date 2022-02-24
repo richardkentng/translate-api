@@ -22,17 +22,28 @@
 - To access data from an axios response, I must access the data property!
   - This sounds rather obvious now that I've typed it out, but it still amazes me how often I've mistakenly tried to use the direct axios response, having forgotten the fact that the data....is actually in the data property!
 
-# Cool Feature
+# Cool Feature: Translation History
 
-![main](./github_images/loading.png)
+![translation history](./github_images/translation-history.png)
+
+After a translation is processed, it will automatically be stored in local storage and displayed on the page! This one was pretty fun.
+
+# A Touch of User Experience: Loading Wheel
+
+![loading wheel](./github_images/loading.png)
 
 I'm a big advocate of great user experience! In this case, I just added a simple loading wheel to inform users that their translation is processing! Otherwise, the user would be discouraged by lack of a quick response, and leave.
 
 # Next Steps?
 
 - change the input tag to a textarea tag so that more text can be shown!
+- ~~allow users to see a history of their translations via localStorage~~
+  - allow users to delete items from translation history!
+  - limit history to 10 items?
 - allow translations between any two languages -- not just english and chinese!
-- allow users to see a history of their translations via localStorage
 - learn how to customize url names for netlify, because 'https://cranky-wing-b0bad3.netlify.app/' sounds way too random!
 - limit api requests per user
 - notify users when the api is down (this api only allows about 300 free requests per month)
+- create a slider to adjust the font size of chinese characters in the translation history?
+- add bootstrap?
+- move github repo link to the navbar?
