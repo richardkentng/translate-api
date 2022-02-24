@@ -40,7 +40,8 @@ I'm a big advocate of great user experience! In this case, I just added a simple
 - change the input tag to a textarea tag so that more text can be shown!
 - ~~allow users to see a history of their translations via localStorage~~
   - ~~limit history to 10 items~~
-  - allow users to delete items from translation history!
+  - ~~allow users to delete items from translation history!~~
+    - beautify delete button layout with flexbox and a bootstrap icon
   - allow users to 'clear all' history via drop down menu
 - allow translations between any two languages -- not just english and chinese!
 - limit api requests per user
