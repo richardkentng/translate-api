@@ -113,6 +113,8 @@ function addTranslationToLocalStorage(data) {
     translatedText: data.translated_text[data.to],
     dateCreated: Date.now(),
   });
+  //limit translations to 10 items
+  if (translations.length > 10) translations.pop();
   //update local storage with new translations array
   localStorage.setItem("translations", JSON.stringify(translations));
   return translations;
