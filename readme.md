@@ -39,13 +39,13 @@ I'm a big advocate of great user experience! In this case, I just added a simple
 - make sure site is responsive
 - change the input tag to a textarea tag so that more text can be shown!
 - ~~allow users to see a history of their translations via localStorage~~
-  - limit history to 10 items?
+  - ~~limit history to 10 items~~
   - allow users to delete items from translation history!
   - allow users to 'clear all' history via drop down menu
 - allow translations between any two languages -- not just english and chinese!
-- learn how to customize url names for netlify, because 'https://cranky-wing-b0bad3.netlify.app/' sounds way too random!
 - limit api requests per user
 - notify users when the api is down (this api only allows about 300 free requests per month)
 - create a slider to adjust the font size of chinese characters in the translation history?
 - add bootstrap?
 - move github repo link to the navbar?
+- ~~learn how to customize url names for netlify, because 'https://cranky-wing-b0bad3.netlify.app/' sounds way too random!~~
