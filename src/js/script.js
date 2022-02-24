@@ -1,5 +1,7 @@
 console.log("sanity check");
 
+displayTranslations(getTranslations());
+
 const englishForm = document.body.querySelector(".english-form");
 const englishInput = document.body.querySelector("input[data-sl='en']");
 const englishTranslateBtn = englishForm.querySelector("button[type='submit']");
@@ -29,13 +31,16 @@ async function onSubmit(e, text, sourceLan) {
   disableTranslateButtons_showLoadingWheel();
 
   //translate the text:
-  const translatedText = await translate(text, sourceLan, targetLan);
+  const data = await translate(text, sourceLan, targetLan);
+  const translatedText = data.translated_text[data.to];
 
   //show the translated text:
   targetInput.value = translatedText;
 
   // hide visual cues:
   enableTranslateButtons_hideLoadingWheel();
+
+  displayTranslations(addTranslationToLocalStorage(data));
 
   //------------------------------------------------------------------------
   //**************************  FUNCTIONS  *********************************
@@ -70,12 +75,14 @@ async function onSubmit(e, text, sourceLan) {
 
     try {
       const { data } = await axios.request(requestOptions);
-      return data.translatedText;
+      return data;
     } catch (error) {
       console.error(error);
       return error.toString();
     }
   }
+
+  //for visual cues:
 
   function enableTranslateButtons_hideLoadingWheel() {
     sourceTranslateButton.innerHTML = "translate"; //removes loading symbol
@@ -91,4 +98,49 @@ async function onSubmit(e, text, sourceLan) {
       `<img src='../images/loading.gif' alt='loading gif' height=${sourceTranslateButton.offsetHeight}/>`
     );
   }
+}
+
+//---------------------------------------------------------------------------------
+//********** MORE FUNCTIONS (relating to showing translation history)  ************
+//---------------------------------------------------------------------------------
+
+function addTranslationToLocalStorage(data) {
+  //get translations from local storage
+  let translations = getTranslations();
+  //add the translated data into the translations array
+  translations.unshift({
+    originalText: data.original_text,
+    translatedText: data.translated_text[data.to],
+    dateCreated: Date.now(),
+  });
+  //update local storage with new translations array
+  localStorage.setItem("translations", JSON.stringify(translations));
+  return translations;
+}
+
+function displayTranslations(translations) {
+  //hide/show section.translation-history depending on length of translations array
+  const section = document.body.querySelector("section.translation-history");
+  if (!translations.length) return section.classList.add("display-none");
+  else section.classList.remove("display-none");
+
+  //convert an array of translation objects into an HTML-displayable string
+  let translationsStr = translations
+    .map((t) => {
+      return `
+    <div class="translation">
+      <p>${t.originalText}</p>
+      <p>${t.translatedText}</p>
+    </div>
+    `;
+    })
+    .join("");
+
+  const translationCont = document.body.querySelector(".translations");
+  translationCont.innerHTML = translationsStr;
+}
+
+function getTranslations() {
+  let translations = localStorage.getItem("translations") || "[]";
+  return JSON.parse(translations);
 }
