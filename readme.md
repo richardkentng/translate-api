@@ -36,7 +36,6 @@ I'm a big advocate of great user experience! In this case, I just added a simple
 
 # Next Steps?
 
-- make sure site is responsive
 - change the input tag to a textarea tag so that more text can be shown!
 - ~~allow users to see a history of their translations via localStorage~~
   - ~~limit history to 10 items~~
@@ -49,4 +48,5 @@ I'm a big advocate of great user experience! In this case, I just added a simple
 - create a slider to adjust the font size of chinese characters in the translation history?
 - add bootstrap?
 - move github repo link to the navbar?
+- make sure site is responsive
 - ~~learn how to customize url names for netlify, because 'https://cranky-wing-b0bad3.netlify.app/' sounds way too random!~~
