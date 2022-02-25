@@ -135,8 +135,10 @@ function displayTranslations(translations) {
     .map((t) => {
       return `
     <div class="translation">
-      <p>${t.originalText}</p>
-      <p>${t.translatedText}</p>
+      <div>
+        <p>${t.originalText}</p>
+        <p>${t.translatedText}</p>
+      </div>
       <!-- the data attribute describes this button as a delete button for later use: -->
       <button data-delete-translation-history-item>
         <i class="bi-trash" data-delete-translation-history-item></i>
