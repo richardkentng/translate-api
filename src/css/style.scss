@@ -62,6 +62,9 @@ h2 {
     background-color: silver;
     border-radius: 0.5em;
     .translation {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
       background-color: white;
       padding: 1em;
       margin: 0.5em;

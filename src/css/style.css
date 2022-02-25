@@ -61,6 +61,9 @@ h2 {
   border-radius: 0.5em;
 }
 .translation-history .translations .translation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: white;
   padding: 1em;
   margin: 0.5em;
