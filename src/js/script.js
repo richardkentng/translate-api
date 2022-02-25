@@ -138,7 +138,9 @@ function displayTranslations(translations) {
       <p>${t.originalText}</p>
       <p>${t.translatedText}</p>
       <!-- the data attribute describes this button as a delete button for later use: -->
-      <button data-delete-translation-history-item>delete</button>
+      <button data-delete-translation-history-item>
+        <i class="bi-trash" data-delete-translation-history-item></i>
+      </button>
     </div>
     `;
     })
