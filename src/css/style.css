@@ -1,51 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  margin: 2rem;
-}
-
-form {
-  margin: 1rem 0;
-  padding: 1rem;
-  border-radius: 0.5em;
-}
-form label {
-  display: block;
-}
-form button {
-  width: 27%;
-}
-
-label {
-  margin-right: 0.5rem;
-}
-
-button {
-  font-size: 15px;
-  padding: 0.5em;
-  border-radius: 0.3em;
-  border: solid black 1px;
-}
-
-button:hover {
-  filter: brightness(0.9);
-}
-
-body {
   font-family: "Poppins", sans-serif;
-}
-
-hr {
-  margin-top: 3rem;
-}
-
-h2 {
-  margin: 2rem 0;
 }
 
 .translation-history .max-items {
@@ -57,7 +12,7 @@ h2 {
 .translation-history .translations {
   display: flex;
   flex-direction: column;
-  background-color: silver;
+  background-color: #ddd;
   border-radius: 0.5em;
 }
 .translation-history .translations .translation {
