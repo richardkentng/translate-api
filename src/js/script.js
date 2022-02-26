@@ -140,7 +140,7 @@ function displayTranslations(translations) {
         <p>${t.translatedText}</p>
       </div>
       <!-- the data attribute describes this button as a delete button for later use: -->
-      <button data-delete-translation-history-item>
+      <button data-delete-translation-history-item class="btn btn-outline-danger">
         <i class="bi-trash" data-delete-translation-history-item></i>
       </button>
     </div>
