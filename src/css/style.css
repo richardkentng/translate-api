@@ -20,15 +20,11 @@ form label {
 form button {
   width: 27%;
 }
-form input {
-  width: 70%;
-}
 
 label {
   margin-right: 0.5rem;
 }
 
-input,
 button {
   font-size: 15px;
   padding: 0.5em;

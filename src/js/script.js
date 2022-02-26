@@ -7,10 +7,10 @@ const translations = document.body.querySelector(".translations");
 translations.addEventListener("click", deleteTranslationHistoryItem);
 
 const englishForm = document.body.querySelector(".english-form");
-const englishInput = document.body.querySelector("input[data-sl='en']");
+const englishInput = document.body.querySelector("textarea[data-sl='en']");
 const englishTranslateBtn = englishForm.querySelector("button[type='submit']");
 const chineseForm = document.body.querySelector(".chinese-form");
-const chineseInput = document.body.querySelector("input[data-sl='zh-CN']");
+const chineseInput = document.body.querySelector("textarea[data-sl='zh-CN']");
 const chineseTranslateBtn = chineseForm.querySelector("button[type='submit']");
 
 englishForm.addEventListener("submit", function (e) {
