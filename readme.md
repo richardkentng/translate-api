@@ -1,4 +1,4 @@
-# [Click here for the deployed app!](https://translate-api.netlify.app/)
+# [Deployed Translation Site](https://translate-api.netlify.app/)
 
 ## This api-implementation translates English text to Chinese text and vice versa!
 
@@ -30,6 +30,7 @@
 # Cool Feature: Translation History w/ Local Storage
 
 ![translation history](./github_images/translation-history.png)
+
 After a translation is processed, it will automatically be stored in local storage and displayed on the page!
 
 - CR~U~D
@@ -68,10 +69,10 @@ I'm a big advocate of great user experience! In this case, I just added a simple
 
 # More
 
-## Before bootstrap
+## Before Bootstrap
 
 ![before bootstrap](./github_images/before-bootstrap.png)
 
-## After bootstrap
+## After Bootstrap
 
 ![after bootstrap](./github_images/after-bootstrap.png)
