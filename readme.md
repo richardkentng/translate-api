@@ -36,7 +36,7 @@ After a translation is processed, it will automatically be stored in local stora
 - CR~U~D
   - Create: store the translated item in local storage
   - Read: display the items from local storage
-  - ~~Update~~: there is no need to edit the text of past translations.
+  - ~~Update~~: there is no need to edit the text of past translations
   - Delete: remove select translations from local storage
 
 # A Note About User Experience
