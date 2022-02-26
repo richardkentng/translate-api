@@ -37,6 +37,10 @@ button {
   border: solid black 1px;
 }
 
+button:hover {
+  filter: brightness(0.9);
+}
+
 body {
   font-family: "Poppins", sans-serif;
 }
