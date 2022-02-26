@@ -8,6 +8,11 @@
 
 - [NLP Translation API](https://rapidapi.com/gofitech/api/nlp-translation/)
   - I simply looked up translation apis and used the first one I found that worked. My goal was not to choose the best API but to get acquainted with using APIs. Anyhow, I dislike how this API takes several seconds to translate...there are definitely faster ones!
+- Bootstrap (used to style forms and buttons)
+  - some classes used:
+    - used `input-group` on a container to make its children side by side (eg a text input next to a button)
+    - used `form-control` on a text input to make it responsively span the page width
+    - used `form-label` on a label for a text input
 
 # Dependencies
 
@@ -22,13 +27,18 @@
 - To access data from an axios response, I must access the data property!
   - This sounds rather obvious now that I've typed it out, but it still amazes me how often I've mistakenly tried to use the direct axios response, having forgotten the fact that the data....is actually in the data property!
 
-# Cool Feature: Translation History
+# Cool Feature: Translation History w/ Local Storage
 
 ![translation history](./github_images/translation-history.png)
+After a translation is processed, it will automatically be stored in local storage and displayed on the page!
 
-After a translation is processed, it will automatically be stored in local storage and displayed on the page! This one was pretty fun.
+- CR~U~D
+  - Create: store the translated item in local storage
+  - Read: display the items from local storage
+  - ~~Update~~: there is no need to edit the text of past translations.
+  - Delete: remove select translations from local storage
 
-# A Touch of User Experience: Loading Wheel
+# A Note About User Experience
 
 ![loading wheel](./github_images/loading.png)
 
@@ -36,11 +46,15 @@ I'm a big advocate of great user experience! In this case, I just added a simple
 
 # Next Steps?
 
-- change the input tag to a textarea tag so that more text can be shown!
+- add keyboard shortcut (meta + enter) to submit translation form!
+- add feature for voice input!
+- add copy/paste button
+- add speaker buttons so that it reads aloud the clicked text!
+- learn how to download JSON file of past translations!
 - ~~allow users to see a history of their translations via localStorage~~
   - ~~limit history to 10 items~~
   - ~~allow users to delete items from translation history!~~
-    - beautify delete button layout with flexbox and a bootstrap icon
+    - ~~beautify delete button layout with flexbox and a bootstrap icon~~
   - allow users to 'clear all' history via drop down menu
 - allow translations between any two languages -- not just english and chinese!
 - limit api requests per user
@@ -49,4 +63,15 @@ I'm a big advocate of great user experience! In this case, I just added a simple
 - add bootstrap?
 - move github repo link to the navbar?
 - make sure site is responsive
+- ~~change the input tag to a textarea tag so that more text can be shown!~~
 - ~~learn how to customize url names for netlify, because 'https://cranky-wing-b0bad3.netlify.app/' sounds way too random!~~
+
+# More
+
+## Before bootstrap
+
+![before bootstrap](./github_images/before-bootstrap.png)
+
+## After bootstrap
+
+![after bootstrap](./github_images/after-bootstrap.png)
