@@ -8,11 +8,7 @@ This api-implementation translates text between two languages of your choosing, 
 
 ## Technologies
 
-Javascript, HTML/CSS, Bootstrap, SASS
-
-## Other
-
-APIs, Local Storage, Netlify
+Javascript, HTML/CSS, Bootstrap, SASS, APIs, Local Storage, Netlify
 
 # Resources
 
