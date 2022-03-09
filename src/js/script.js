@@ -1,112 +1,103 @@
 console.log("sanity check");
 
+//======================================================/
+//------------------- GRAB ELEMENTS --------------------/
+//======================================================/
+
+const languageForm = document.body.querySelector(".language-form");
+const translations = document.body.querySelector(".translations");
+const swapLangsBtn = document.body.querySelector(".swap-langs-btn");
+const loadingWheel = document.body.querySelector(".loading-wheel");
+const translateBtn = document.body.querySelector(".translate-btn");
+
+//======================================================/
+//--------------- POPULATE/UPDATE HTML -----------------/
+//======================================================/
+
+populateLangSelects();
 displayTranslations(getTranslations());
 
-//listen for clicks (will check if the click originated from a delete button)
-const translations = document.body.querySelector(".translations");
+//update language selections from local storage
+languageForm.selectSourceLang.value =
+  localStorage.getItem("selectSourceLang") || "";
+languageForm.selectTargetLang.value =
+  localStorage.getItem("selectTargetLang") || "";
+
+//======================================================/
+//---------------- ADD EVENT LISTENERS -----------------/
+//======================================================/
+
+//submit form to translate
+languageForm.addEventListener("submit", onSubmitLangForm);
+
+//click delete button to delete translation history item
 translations.addEventListener("click", deleteTranslationHistoryItem);
 
-const englishForm = document.body.querySelector(".english-form");
-const englishInput = document.body.querySelector("textarea[data-sl='en']");
-const englishTranslateBtn = englishForm.querySelector("button[type='submit']");
-const chineseForm = document.body.querySelector(".chinese-form");
-const chineseInput = document.body.querySelector("textarea[data-sl='zh-CN']");
-const chineseTranslateBtn = chineseForm.querySelector("button[type='submit']");
+//select a language to save languages to local storage
+languageForm.selectSourceLang.addEventListener("change", saveLangs);
+languageForm.selectTargetLang.addEventListener("change", saveLangs);
 
-englishForm.addEventListener("submit", function (e) {
-  onSubmit(e, englishInput.value, englishInput.dataset.sl);
-});
-chineseForm.addEventListener("submit", function (e) {
-  onSubmit(e, chineseInput.value, chineseInput.dataset.sl);
+//click swap button to swap language & text, save language selections to local storage
+swapLangsBtn.addEventListener("click", () => {
+  swapLangAndText();
+  saveLangs();
 });
 
-async function onSubmit(e, text, sourceLan) {
-  //prevent page reload upon submitting form:
+//if meta + enter is pressed, click translate button
+document.body.addEventListener("keydown", (e) => {
+  if (!e.metaKey || e.key !== "Enter") return;
+  translateBtn.click();
+});
+
+//======================================================/
+//------------------ CORE FUNCTIONS --------------------/
+//======================================================/
+
+async function onSubmitLangForm(e) {
   e.preventDefault();
 
-  let targetLan; //for api
-  let targetInput; //where to show translated result
-  let targetTranslateButton; //ux: disable this during translation
-  let sourceTranslateButton; //ux: where to show the loading wheel
-  //populate the above variables:
-  determineThe_targetLanguague_inputElement_translateButtons();
+  loadingWheel.classList.remove("visually-hidden");
+  translateBtn.classList.add("disabled");
 
-  // show visual cues:
-  disableTranslateButtons_showLoadingWheel();
-
-  //translate the text:
-  const data = await translate(text, sourceLan, targetLan);
+  const data = await translate(
+    this.sourceTextarea.value,
+    this.selectSourceLang.value,
+    this.selectTargetLang.value
+  );
   const translatedText = data.translated_text[data.to];
+  this.targetTextarea.value = translatedText;
 
-  //show the translated text:
-  targetInput.value = translatedText;
-
-  // hide visual cues:
-  enableTranslateButtons_hideLoadingWheel();
+  loadingWheel.classList.add("visually-hidden");
+  translateBtn.classList.remove("disabled");
 
   displayTranslations(addTranslationToLocalStorage(data));
 
-  //------------------------------------------------------------------------
-  //**************************  FUNCTIONS (for core api functionality) *********************************
-  //------------------------------------------------------------------------
+  languageForm.sourceTextarea.focus();
+}
 
-  function determineThe_targetLanguague_inputElement_translateButtons() {
-    if (sourceLan === "en") {
-      targetLan = "zh-CN";
-      targetInput = chineseInput;
-      targetTranslateButton = chineseTranslateBtn;
-    } else if (sourceLan === "zh-CN") {
-      targetLan = "en";
-      targetInput = englishInput;
-      targetTranslateButton = englishTranslateBtn;
-    }
+async function translate(text, sourceLang, targetLang) {
+  const requestOptions = {
+    method: "GET",
+    url: "/.netlify/functions/fetch-translation",
+    params: {
+      text,
+      from: sourceLang,
+      to: targetLang,
+    },
+  };
 
-    sourceTranslateButton = e.currentTarget.querySelector(
-      "button[type='submit']"
-    );
-  }
-
-  async function translate(text, sourceLan, targetLan) {
-    const requestOptions = {
-      method: "GET",
-      url: "/.netlify/functions/fetch-translation",
-      params: {
-        text,
-        from: sourceLan,
-        to: targetLan,
-      },
-    };
-
-    try {
-      const { data } = await axios.request(requestOptions);
-      return data;
-    } catch (error) {
-      console.error(error);
-      return error.toString();
-    }
-  }
-
-  //for visual cues:
-
-  function enableTranslateButtons_hideLoadingWheel() {
-    sourceTranslateButton.innerHTML = "translate"; //removes loading symbol
-    sourceTranslateButton.disabled = false; //this is the clicked button
-    targetTranslateButton.disabled = false;
-  }
-  function disableTranslateButtons_showLoadingWheel() {
-    sourceTranslateButton.disabled = true; //this is the clicked button
-    targetTranslateButton.disabled = true;
-    //add loading symbol to clicked button:
-    sourceTranslateButton.insertAdjacentHTML(
-      "beforeend",
-      `<img src='../images/loading.gif' alt='loading gif' height=${sourceTranslateButton.offsetHeight}/>`
-    );
+  try {
+    const { data } = await axios.request(requestOptions);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return error.toString();
   }
 }
 
-//---------------------------------------------------------------------------------
-//********** MORE FUNCTIONS (relating to showing translation history)  ************
-//---------------------------------------------------------------------------------
+//======================================================/
+//--- FUNCTIONS TO ADD & DISPLAY TRANSLATION HISTORY ---/
+//======================================================/
 
 function addTranslationToLocalStorage(data) {
   //get translations from local storage
@@ -148,8 +139,7 @@ function displayTranslations(translations) {
     })
     .join("");
 
-  const translationCont = document.body.querySelector(".translations");
-  translationCont.innerHTML = translationsStr;
+  document.body.querySelector(".translations").innerHTML = translationsStr;
 }
 
 function getTranslations() {
@@ -157,9 +147,9 @@ function getTranslations() {
   return JSON.parse(translations);
 }
 
-//---------------------------------------------------------------------------------
-//********** MORE FUNCTIONS (to DELETE an item from translation history)  ************
-//---------------------------------------------------------------------------------
+//======================================================/
+//------ FUNCTIONS TO DELETE TRANSLATION HISTORY -------/
+//======================================================/
 
 function deleteTranslationHistoryItem(e) {
   //ensure that delete button was clicked:
@@ -195,4 +185,41 @@ function deleteTranslationHistoryItem(e) {
     }
     return index;
   }
+}
+
+//======================================================/
+//-------------- MISCELLANEOUS FUNCTIONS ---------------/
+//======================================================/
+
+function swapLangAndText() {
+  //swap lang
+  const tempLang = languageForm.selectSourceLang.value;
+  languageForm.selectSourceLang.value = languageForm.selectTargetLang.value;
+  languageForm.selectTargetLang.value = tempLang;
+  //swap text
+  const tempText = languageForm.sourceTextarea.value;
+  languageForm.sourceTextarea.value = languageForm.targetTextarea.value;
+  languageForm.targetTextarea.value = tempText;
+  //focus textarea
+  languageForm.sourceTextarea.focus();
+}
+
+function saveLangs() {
+  localStorage.setItem(
+    languageForm.selectSourceLang.name,
+    languageForm.selectSourceLang.value
+  );
+  localStorage.setItem(
+    languageForm.selectTargetLang.name,
+    languageForm.selectTargetLang.value
+  );
+}
+
+function populateLangSelects() {
+  nlpLangCodes.unshift(["", "Select a Language"]);
+  const optionsHtml = nlpLangCodes //nlpLangCodes is sourced from ./nlp-lang-codes.js
+    .map(([langCode, lang]) => `<option value="${langCode}">${lang}</option>`)
+    .join("");
+  languageForm.selectSourceLang.innerHTML = optionsHtml;
+  languageForm.selectTargetLang.innerHTML = optionsHtml;
 }
