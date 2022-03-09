@@ -74,12 +74,18 @@ I'm a big advocate of great user experience. In this case, I just added a simple
 
 ## Plain HTML
 
-![before bootstrap](./github_images/version-1.png)
+![plain html](./github_images/version-1.png)
 
 ## Added Bootstrap
 
-![after bootstrap](./github_images/version-2.png)
+![added bootstrap](./github_images/version-2.png)
 
 ## Added Language Selection
 
 ![main page](./github_images/main-page.png)
+
+## Updated Loading Wheel
+
+![old loading wheel](./github_images/old-loading.png)
+
+![loading wheel](./github_images/loading.png)
