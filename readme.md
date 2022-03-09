@@ -5,8 +5,14 @@
 # Description
 
 This api-implementation translates text between two languages of your choosing, and saves your translation history.
-**Technologies:** Javascript, HTML/CSS, Bootstrap, SASS
-**Other:** APIs, Local Storage, Netlify
+
+## Technologies
+
+Javascript, HTML/CSS, Bootstrap, SASS
+
+## Other
+
+APIs, Local Storage, Netlify
 
 # Resources
 
