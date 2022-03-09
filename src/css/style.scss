@@ -28,6 +28,11 @@
   }
 }
 
-.display-none {
-  display: none;
+.translate-btn {
+  &:hover .kbd-shortcut {
+    color: white !important;
+  }
+  .kbd-shortcut {
+    font-size: 0.6em;
+  }
 }
