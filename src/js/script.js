@@ -5,6 +5,8 @@ console.log("sanity check");
 //======================================================/
 
 const languageForm = document.body.querySelector(".language-form");
+const selectSourceLang = languageForm.selectSourceLang;
+const selectTargetLang = languageForm.selectTargetLang;
 const translations = document.body.querySelector(".translations");
 const swapLangsBtn = document.body.querySelector(".swap-langs-btn");
 const loadingWheel = document.body.querySelector(".loading-wheel");
@@ -18,10 +20,8 @@ populateLangSelects();
 displayTranslations(getTranslations());
 
 //update language selections from local storage
-languageForm.selectSourceLang.value =
-  localStorage.getItem("selectSourceLang") || "";
-languageForm.selectTargetLang.value =
-  localStorage.getItem("selectTargetLang") || "";
+selectSourceLang.value = localStorage.getItem("selectSourceLang") || "";
+selectTargetLang.value = localStorage.getItem("selectTargetLang") || "";
 
 //======================================================/
 //---------------- ADD EVENT LISTENERS -----------------/
@@ -34,8 +34,8 @@ languageForm.addEventListener("submit", onSubmitLangForm);
 translations.addEventListener("click", deleteTranslationHistoryItem);
 
 //select a language to save languages to local storage
-languageForm.selectSourceLang.addEventListener("change", saveLangs);
-languageForm.selectTargetLang.addEventListener("change", saveLangs);
+selectSourceLang.addEventListener("change", saveLangs);
+selectTargetLang.addEventListener("change", saveLangs);
 
 //click swap button to swap language & text, save language selections to local storage
 swapLangsBtn.addEventListener("click", () => {
@@ -193,9 +193,9 @@ function deleteTranslationHistoryItem(e) {
 
 function swapLangAndText() {
   //swap lang
-  const tempLang = languageForm.selectSourceLang.value;
-  languageForm.selectSourceLang.value = languageForm.selectTargetLang.value;
-  languageForm.selectTargetLang.value = tempLang;
+  const tempLang = selectSourceLang.value;
+  selectSourceLang.value = selectTargetLang.value;
+  selectTargetLang.value = tempLang;
   //swap text
   const tempText = languageForm.sourceTextarea.value;
   languageForm.sourceTextarea.value = languageForm.targetTextarea.value;
@@ -205,14 +205,8 @@ function swapLangAndText() {
 }
 
 function saveLangs() {
-  localStorage.setItem(
-    languageForm.selectSourceLang.name,
-    languageForm.selectSourceLang.value
-  );
-  localStorage.setItem(
-    languageForm.selectTargetLang.name,
-    languageForm.selectTargetLang.value
-  );
+  localStorage.setItem(selectSourceLang.name, selectSourceLang.value);
+  localStorage.setItem(selectTargetLang.name, selectTargetLang.value);
 }
 
 function populateLangSelects() {
@@ -220,6 +214,6 @@ function populateLangSelects() {
   const optionsHtml = nlpLangCodes //nlpLangCodes is sourced from ./nlp-lang-codes.js
     .map(([langCode, lang]) => `<option value="${langCode}">${lang}</option>`)
     .join("");
-  languageForm.selectSourceLang.innerHTML = optionsHtml;
-  languageForm.selectTargetLang.innerHTML = optionsHtml;
+  selectSourceLang.innerHTML = optionsHtml;
+  selectTargetLang.innerHTML = optionsHtml;
 }
