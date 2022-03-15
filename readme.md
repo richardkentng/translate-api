@@ -52,6 +52,8 @@ I'm a big advocate of great user experience. In this case, I just added a simple
 
 # Potential Features:
 
+- be able to search for a language
+- hide keyboard shortcut hint for mobile devices
 - add feature for voice input!
 - add copy/paste button
 - add speaker buttons so that it reads aloud the clicked text!
