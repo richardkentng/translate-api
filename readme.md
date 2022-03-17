@@ -96,7 +96,7 @@ I'm a big advocate of great user experience. In this case, I just added a simple
 
 I'm experimenting with different HTML structures to get the best language-selection method! Have a look!
 
-## Language Selection Method 1: Select/Option Tags
+## Language Selection Method 1: Select > Options
 
 ![select language 1](./github_images/evolution/select-lang-1.png)
 
@@ -106,7 +106,7 @@ This is just a basic dropdown.
     <select name="selectSourceLang">
       <option value="">Select a Language</option>
       <option value="en">English</option>
-      //more options
+      //etc
     </select>
 ```
 
@@ -132,19 +132,20 @@ This is essentially a regular input, with a list of suggested options.
 
   <datalist id="lang-list">
     <option value="English">English</option> //notice how the value is the exact same as the text content!
+    //etc
   </datalist>
 
 ```
 
 ### Pros
 
-- You can search through the options!
+- Search
 - Scroll bar
 
 ### Cons
 
 - Just One Input Value To Work With: For the options inside the datalist, the value should be exactly the SAME as the textContent. Otherwise, the dropdown will show two text items per option instead of one!
-  - My Solution: In order to get the language's code, I had to feed the full language word (eg: `inputEl.value === "English"`) into an object. (eg: `lang_langCode["English"] === "en"`)
-- Lacks No-Match-Message: If you type something that matches no languages, the list options disappear, but there is no message that says "no options"
-- Not-Smart Enter Press: If you type a partial language name and press enter, the language at the top of the list will NOT be selected. Instead, the form will submit, and the next required & unfilled form-control may become selected.
+  - How I got the langauge code: I had to feed the full language word (eg: `inputEl.value === "English"`) into an object. (eg: `lang_langCode["English"] === "en"`)
+- Lacks No-Match-Message: If you type something that matches no languages, the list options disappear, but there is no message that says "no options".
+- Not-Smart Enter Press: If you type a partial language name and press enter, the language at the top of the list will NOT be selected. Instead, the form will submit, and the next required & unfilled form-control may be selected.
 - Backspace Bug: When you press backspace enough so that the field is empty, the entire list of languages do NOT show! The last time that the list updates is when you press backspace on the second to the last word.
