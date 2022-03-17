@@ -15,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- static css & js -->
     <link rel="stylesheet" href="./css/style.css"></link>
-    <script src="./js/nlp-lang-codes.js" defer></script>
+    <script src="./js/lang_langCode.js" defer></script>
     <script src="./js/script.js" defer></script>
 </head>
 <body class="container my-4">
@@ -23,14 +23,16 @@
 
     <form class="language-form">
         <div class="input-group">
-            <select name="selectSourceLang" class="form-select" required><!--Populated via Javascript--></select>
+            <datalist id="lang-list"></datalist>
+            <input placeholder="Select a Language" list="lang-list" name="selectSourceLang" class="lang-input-1 form-control" required>
             <button type="button" class="swap-langs-btn btn btn-outline-dark border-secondary opacity-50" tabindex="-1"><i class="bi-arrow-repeat"></i></button>
-            <select name="selectTargetLang" class="form-select" required><!--Populated via Javascript--></select>
+            <input placeholder="Select a Language" list="lang-list" name="selectTargetLang" class="lang-input-2 form-control" required>
         </div>
         <div class="input-group">
             <textarea name="sourceTextarea" class="form-control" cols="30" rows="10" required></textarea>
             <textarea name="targetTextarea" class="form-control" cols="30" rows="10" disabled></textarea>
         </div>
+        <!-- translate button -->
         <button type="submit" class="translate-btn btn btn-outline-primary form-control">
             <div class="d-inline-block">
                 <span>Translate</span>
