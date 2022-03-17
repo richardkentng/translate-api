@@ -72,7 +72,7 @@ I specifically styled the toast to look similar to the automatic popups that Chr
 - SCSS styling
 - Bootstrap Icons (imported via HTML link)
 
-### Take a look at the toast function's javascript:
+### function insertToast:
 
 ```
 function insertToast(text, refElement) {
