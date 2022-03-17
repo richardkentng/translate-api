@@ -45,11 +45,63 @@ After a translation is processed, it will automatically be stored in local stora
   - ~~Update~~: There is no need to edit the text of past translations.
   - Delete: Remove select translations from local storage.
 
+# Coolest Achievement: Custom Toast
+
+[custom toast](./github_images/custom-toast.png)
+
+I created a `insertToast` function that accepts 2 arguments: `text, refElement`. Although Boostrap already has toasts, I was excited to make my own!
+
+### Positioning
+
+The toast will appear under `refElement`. This means that I can position this toast under any HTML element!
+
+### Styling
+
+I specifically styled the toast to look similar to the automatic popups that Chrome gives you when you do not fill in a required field.
+
+### Use Case
+
+I used this function to alert users when they submit a form with invalid languages selected.
+
+### Required Parts:
+
+- Javascript function
+- SCSS styling
+- Bootstrap Icons (imported via HTML link)
+
+### Take a look at the toast function's javascript:
+
+```
+function insertToast(text, refElement) {
+  //construct and insert toast:
+  const toastStr = `
+  <div class="my-toast">
+    <i class="arrow-icon bi-caret-up-fill"></i>
+    <div class="box">
+      <i class="bang-icon bi-exclamation-square-fill"></i>
+      <span class="text">${text}</span>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML("beforeend", toastStr);
+  const toast = document.body.lastChild;
+
+  //position based on refElement:
+  const { x: refX, bottom: refBottom } = refElement.getBoundingClientRect();
+  toast.style.left = refX + "px";
+  toast.style.top = refBottom - 8 + "px"; //subtract 8 to adjust for the whitespace around arrow
+
+  //vanish after 3 seconds:
+  setTimeout(() => {
+    toast.remove();
+  }, 3000);
+}
+```
+
 # A Note About User Experience
 
 ![loading wheel](./github_images/loading.png)
 
-I'm a big advocate of great user experience. In this case, I just added a simple loading wheel to inform users that their translation is processing. Otherwise, the user would be discouraged by lack of a quick response, and leave.
+I love great user experience. In this case, I just added a simple loading wheel to inform users that their translation is processing. Otherwise, the user would get bored faster and leave!
 
 # Potential Features:
 
