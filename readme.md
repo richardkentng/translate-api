@@ -47,7 +47,7 @@ After a translation is processed, it will automatically be stored in local stora
 
 # Coolest Achievement: Custom Toast
 
-[custom toast](./github_images/custom-toast.png)
+![custom toast](./github_images/custom-toast.png)
 
 I created a `insertToast` function that accepts 2 arguments: `text, refElement`. Although Boostrap already has toasts, I was excited to make my own!
 
