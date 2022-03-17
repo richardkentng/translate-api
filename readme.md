@@ -95,7 +95,6 @@ I'm a big advocate of great user experience. In this case, I just added a simple
 # Comparison of Language Selection Methods
 
 I'm experimenting with different HTML structures to get the best language-selection method! Have a look!
-Also, [this website](https://table-42.herokuapp.com/) has an excellent dropdown menu (to select the number of people per table). It is a great reference point for what I want.
 
 ## Language Selection Method 1: Select > Options
 
@@ -150,3 +149,11 @@ This is essentially a regular input, with a list of suggested options.
 - Lacks No-Match-Message (Clicks do nothing.): If you type something that matches no languages, the list options disappear, but there is no message that says "no options". Thus, if a no-match word is entered, clicking the dropdown icon accomplish nothing.
 - Not-Smart Enter Press: If you type a partial language name and press enter, the language at the top of the list will NOT be selected. Instead, the form will submit, and the next required & unfilled form-control may be selected.
 - Backspace Bug: When you press backspace enough so that the field is empty, the entire list of languages do NOT show! The last time that the list updates is when you press backspace on the second to the last word.
+
+## The Ideal Dropdown
+
+[This website](https://table-42.herokuapp.com/) has an excellent dropdown menu (to select the number of people per table). It covers all of the cons that my current selection method has.
+
+# Thanks
+
+I'm surprised you scrolled all the way down here. Thanks for checking out my repo!
