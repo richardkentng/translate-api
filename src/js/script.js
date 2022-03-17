@@ -5,23 +5,25 @@ console.log("sanity check");
 //======================================================/
 
 const languageForm = document.body.querySelector(".language-form");
-const selectSourceLang = languageForm.selectSourceLang;
-const selectTargetLang = languageForm.selectTargetLang;
-const translations = document.body.querySelector(".translations");
+const langInput1 = languageForm.selectSourceLang;
+const langInput2 = languageForm.selectTargetLang;
+const sourceTextarea = languageForm.sourceTextarea;
+const targetTextarea = languageForm.targetTextarea;
 const swapLangsBtn = document.body.querySelector(".swap-langs-btn");
 const loadingWheel = document.body.querySelector(".loading-wheel");
 const translateBtn = document.body.querySelector(".translate-btn");
+const translations = document.body.querySelector(".translations");
 
 //======================================================/
 //--------------- POPULATE/UPDATE HTML -----------------/
 //======================================================/
 
-populateLangSelects();
+populateLangDatalist();
 displayTranslations(getTranslations());
 
 //update language selections from local storage
-selectSourceLang.value = localStorage.getItem("selectSourceLang") || "";
-selectTargetLang.value = localStorage.getItem("selectTargetLang") || "";
+langInput1.value = localStorage.getItem("selectSourceLang") || "";
+langInput2.value = localStorage.getItem("selectTargetLang") || "";
 
 //======================================================/
 //---------------- ADD EVENT LISTENERS -----------------/
@@ -33,15 +35,8 @@ languageForm.addEventListener("submit", onSubmitLangForm);
 //click delete button to delete translation history item
 translations.addEventListener("click", deleteTranslationHistoryItem);
 
-//select a language to save languages to local storage
-selectSourceLang.addEventListener("change", saveLangs);
-selectTargetLang.addEventListener("change", saveLangs);
-
 //click swap button to swap language & text, save language selections to local storage
-swapLangsBtn.addEventListener("click", () => {
-  swapLangAndText();
-  saveLangs();
-});
+swapLangsBtn.addEventListener("click", swapLangAndText);
 
 //if meta + enter is pressed, click translate button
 document.body.addEventListener("keydown", (e) => {
@@ -56,23 +51,36 @@ document.body.addEventListener("keydown", (e) => {
 async function onSubmitLangForm(e) {
   e.preventDefault();
 
+  const langCode1 = getLangCode(langInput1);
+  const langCode2 = getLangCode(langInput2);
+  if (!langCode1 || !langCode2) return; //validation
+  saveLangs(); //save valid languages
+
   loadingWheel.classList.remove("visually-hidden");
   translateBtn.classList.add("disabled");
 
-  const data = await translate(
-    this.sourceTextarea.value,
-    this.selectSourceLang.value,
-    this.selectTargetLang.value
-  );
+  const data = await translate(sourceTextarea.value, langCode1, langCode2);
   const translatedText = data.translated_text[data.to];
-  this.targetTextarea.value = translatedText;
+  targetTextarea.value = translatedText;
 
   loadingWheel.classList.add("visually-hidden");
   translateBtn.classList.remove("disabled");
 
   displayTranslations(addTranslationToLocalStorage(data));
 
-  languageForm.sourceTextarea.focus();
+  sourceTextarea.focus();
+}
+
+function getLangCode(inputEl) {
+  //get the language from the input
+  const lang = inputEl.value;
+  const langCode = lang_langCode[lang]; //feed language into object to get the language code
+  if (langCode) return langCode; //if code exists, return it
+
+  // else show popup:
+  insertToast(`Please select a valid language.`, inputEl); //inputEl is used for postion reference
+  inputEl.focus();
+  return false; //end the translation process
 }
 
 async function translate(text, sourceLang, targetLang) {
@@ -91,6 +99,7 @@ async function translate(text, sourceLang, targetLang) {
     return data;
   } catch (error) {
     console.error(error);
+    alert(error.toString());
     return error.toString();
   }
 }
@@ -193,27 +202,48 @@ function deleteTranslationHistoryItem(e) {
 
 function swapLangAndText() {
   //swap lang
-  const tempLang = selectSourceLang.value;
-  selectSourceLang.value = selectTargetLang.value;
-  selectTargetLang.value = tempLang;
+  let temp = langInput1.value;
+  langInput1.value = langInput2.value;
+  langInput2.value = temp;
   //swap text
-  const tempText = languageForm.sourceTextarea.value;
-  languageForm.sourceTextarea.value = languageForm.targetTextarea.value;
-  languageForm.targetTextarea.value = tempText;
+  temp = sourceTextarea.value;
+  sourceTextarea.value = targetTextarea.value;
+  targetTextarea.value = temp;
   //focus textarea
-  languageForm.sourceTextarea.focus();
+  sourceTextarea.focus();
 }
 
 function saveLangs() {
-  localStorage.setItem(selectSourceLang.name, selectSourceLang.value);
-  localStorage.setItem(selectTargetLang.name, selectTargetLang.value);
+  localStorage.setItem(langInput1.name, langInput1.value);
+  localStorage.setItem(langInput2.name, langInput2.value);
 }
 
-function populateLangSelects() {
-  nlpLangCodes.unshift(["", "Select a Language"]);
-  const optionsHtml = nlpLangCodes //nlpLangCodes is sourced from ./nlp-lang-codes.js
-    .map(([langCode, lang]) => `<option value="${langCode}">${lang}</option>`)
+function populateLangDatalist() {
+  const languages = Object.keys(lang_langCode);
+  const optionsHtml = languages
+    .map((lang) => `<option value="${lang}">${lang}</option>`)
     .join("");
-  selectSourceLang.innerHTML = optionsHtml;
-  selectTargetLang.innerHTML = optionsHtml;
+  document.body.querySelector("#lang-list").innerHTML = optionsHtml;
+}
+
+function insertToast(text, refElement) {
+  //construct and insert toast:
+  const toastStr = `
+  <div class="my-toast">
+    <i class="arrow-icon bi-caret-up-fill"></i>
+    <div class="box">
+      <i class="bang-icon bi-exclamation-square-fill"></i>
+      <span class="text">${text}</span>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML("beforeend", toastStr);
+  const toast = document.body.lastChild;
+  //position based on refElement:
+  const { x: refX, bottom: refBottom } = refElement.getBoundingClientRect();
+  toast.style.left = refX + "px";
+  toast.style.top = refBottom - 8 + "px"; //subtract 8 to adjust for the whitespace around arrow
+  //vanish after 3 seconds:
+  setTimeout(() => {
+    toast.remove();
+  }, 3000);
 }
