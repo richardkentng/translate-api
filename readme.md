@@ -49,7 +49,14 @@ After a translation is processed, it will automatically be stored in local stora
 
 ![custom toast](./github_images/custom-toast.png)
 
-I created a `insertToast` function that accepts 2 arguments: `text, refElement`. Although Boostrap already has toasts, I was excited to make my own!
+### Problem
+
+The browser does a good job of alerting you when you fail to fill out a required field. However, how would I show popups for other errors, like an invalid language being typed in?
+
+### Solution
+
+I created a `insertToast` function that accepts 2 arguments: `text, refElement`. (Although Boostrap already has toasts, I was excited to make my own!)
+I used this function to alert users when they submitted a form with invalid languages selected.
 
 ### Positioning
 
@@ -58,10 +65,6 @@ The toast will appear under `refElement`. This means that I can position this to
 ### Styling
 
 I specifically styled the toast to look similar to the automatic popups that Chrome gives you when you do not fill in a required field.
-
-### Use Case
-
-I used this function to alert users when they submit a form with invalid languages selected.
 
 ### Required Parts:
 
@@ -97,7 +100,7 @@ function insertToast(text, refElement) {
 }
 ```
 
-# A Note About User Experience
+# User Experience
 
 ![loading wheel](./github_images/loading.png)
 
