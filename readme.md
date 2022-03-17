@@ -82,9 +82,9 @@ I'm a big advocate of great user experience. In this case, I just added a simple
 
 ![added bootstrap](./github_images/evolution/bootstrap-with.png)
 
-## Added Language Selection
+## Added Language Selection + Search
 
-![main page](./github_images/main-page.png)
+![select language 2](./github_images/evolution/select-lang-2.png)
 
 ## Updated Loading Wheel
 
