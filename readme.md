@@ -5,6 +5,7 @@
 # Description
 
 This api-implementation translates text between two languages of your choosing, and saves your translation history.
+This project will help me practice my HTML, CSS, and Javascript, as I aspire to build out the core features of Google Translate.
 
 ## Technologies
 
@@ -85,9 +86,21 @@ I'm a big advocate of great user experience. In this case, I just added a simple
 
 ![main page](./github_images/main-page.png)
 
-### Old Language Selection Method: Select/Option Tags
+## Updated Loading Wheel
+
+![old loading wheel](./github_images/evolution/old-loading.png)
+
+![loading wheel](./github_images/evolution/loading.png)
+
+# Comparison of Language Selection Methods
+
+I'm experimenting with different HTML structures to get the best language-selection method! Have a look!
+
+## Language Selection Method 1: Select/Option Tags
 
 ![select language 1](./github_images/evolution/select-lang-1.png)
+
+This is just a basic dropdown.
 
 ```
     <select name="selectSourceLang">
@@ -97,43 +110,41 @@ I'm a big advocate of great user experience. In this case, I just added a simple
     </select>
 ```
 
-#### Pros
+### Pros
 
-- Two Values: selectEl.value can be different from optionEl.textContent For example, although "English" might be selected, the value could be "en". I can feed this lanugage code directly into the translate api!
+- Separation of viewed Option Text and Select Value: Put another way, `selectEl.value` can be different from `optionEl.textContent` For example, this is possible: `selectEl.value === "en"` and `optionEl.textContent === "English`. This means that I can feed the lanugage code directly into the translate api!
 
-#### Cons
+### Cons
 
 - No search
-  - Beyond pressing a single letter on the keyboard to match options that start with that letter, there is no powerful search feature
+  - Technically, you can still press a letter on your keyboard to see languages that start with that letter, but that hardly counts.
 - No scroll bar
   - All the available languages span the entire height of the window! That's too much.
 
-### Old Language Selection Method: Input w/ Datalist
+## Language Selection Method 2: Input w/ Datalist
 
 ![select language 2](./github_images/evolution/select-lang-2.png)
+
 This is essentially a regular input, with a list of suggested options.
 
 ```
  <input list="lang-list" name="selectSourceLang" placeholder="Select a Language">
 
   <datalist id="lang-list">
-    <option value="English">English</option>
+    <option value="English">English</option> //notice how the value is the exact same as the text content!
   </datalist>
 
 ```
 
-#### Pros
+### Pros
 
 - You can search through the options!
 - Scroll bar
 
-#### Cons
+### Cons
 
-- Option has one value: For the options inside the datalist, the value should be exactly the SAME as the textContent. Otherwise, the dropdown will show two text items per option instead of one! In my case, this meant I had to feed the full language word (inputEl.value) into an object before I could get the language code.
-- Pressing Enter: If you type a partial language and press enter, the language at the top of the list will NOT be selected.
-
-## Updated Loading Wheel
-
-![old loading wheel](./github_images/evolution/old-loading.png)
-
-![loading wheel](./github_images/evolution/loading.png)
+- Just One Input Value To Work With: For the options inside the datalist, the value should be exactly the SAME as the textContent. Otherwise, the dropdown will show two text items per option instead of one!
+  - My Solution: In order to get the language's code, I had to feed the full language word (eg: `inputEl.value === "English"`) into an object. (eg: `lang_langCode["English"] === "en"`)
+- Lacks No-Match-Message: If you type something that matches no languages, the list options disappear, but there is no message that says "no options"
+- Not-Smart Enter Press: If you type a partial language name and press enter, the language at the top of the list will NOT be selected. Instead, the form will submit, and the next required & unfilled form-control may become selected.
+- Backspace Bug: When you press backspace enough so that the field is empty, the entire list of languages do NOT show! The last time that the list updates is when you press backspace on the second to the last word.
