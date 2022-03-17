@@ -102,7 +102,7 @@ function insertToast(text, refElement) {
 
 # User Experience
 
-![loading wheel](./github_images/loading.png)
+![loading wheel](./github_images/evolution/loading.png)
 
 I love great user experience. In this case, I just added a simple loading wheel to inform users that their translation is processing. Otherwise, the user would get bored faster and leave!
 
