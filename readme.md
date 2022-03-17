@@ -75,20 +75,65 @@ I'm a big advocate of great user experience. In this case, I just added a simple
 
 # Evolution
 
-## Plain HTML
+## Before and After Bootstrap
 
-![plain html](./github_images/version-1.png)
+![without bootstrap](./github_images/evolution/bootstrap-wo.png)
 
-## Added Bootstrap
-
-![added bootstrap](./github_images/version-2.png)
+![added bootstrap](./github_images/evolution/bootstrap-with.png)
 
 ## Added Language Selection
 
 ![main page](./github_images/main-page.png)
 
+### Old Language Selection Method: Select/Option Tags
+
+![select language 1](./github_images/evolution/select-lang-1.png)
+
+```
+    <select name="selectSourceLang">
+      <option value="">Select a Language</option>
+      <option value="en">English</option>
+      //more options
+    </select>
+```
+
+#### Pros
+
+- Two Values: selectEl.value can be different from optionEl.textContent For example, although "English" might be selected, the value could be "en". I can feed this lanugage code directly into the translate api!
+
+#### Cons
+
+- No search
+  - Beyond pressing a single letter on the keyboard to match options that start with that letter, there is no powerful search feature
+- No scroll bar
+  - All the available languages span the entire height of the window! That's too much.
+
+### Old Language Selection Method: Input w/ Datalist
+
+![select language 2](./github_images/evolution/select-lang-2.png)
+This is essentially a regular input, with a list of suggested options.
+
+```
+ <input list="lang-list" name="selectSourceLang" placeholder="Select a Language">
+
+  <datalist id="lang-list">
+    <option value="English">English</option>
+  </datalist>
+
+```
+
+#### Pros
+
+- You can search through the options!
+- Scroll bar
+
+#### Cons
+
+- Option has one value: For the options inside the datalist, the value should be exactly the SAME as the textContent. Otherwise, the dropdown will show two text items per option instead of one! In my case, this meant I had to feed the full language word (inputEl.value) into an object before I could get the language code.
+- Pressing Enter: If you type a partial language and press enter, the language at the top of the list will NOT be selected.
+
 ## Updated Loading Wheel
 
-![old loading wheel](./github_images/old-loading.png)
+![old loading wheel](./github_images/evolution/old-loading.png)
 
-![loading wheel](./github_images/loading.png)
+![loading wheel](./github_images/evolution/loading.png)
