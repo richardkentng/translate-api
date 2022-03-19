@@ -108,6 +108,7 @@ I love great user experience. In this case, I just added a simple loading wheel 
 
 # Potential Features:
 
+- show a "there are no saved translations" message under translation history when applicable
 - fix repo description
 - be able to search for a language
 - hide keyboard shortcut hint for mobile devices
