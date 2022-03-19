@@ -108,7 +108,7 @@ function insertToast(text, refElement) {
 - Cannot visibily delete last translation history item. (Refreshing the page makes it disappear.)
   - Reproduce Issue: Have at least one translation item in history (You can do this by translating something.) Click the delete button. Notice how the translation item does not dissapear!
 
-# Next Steps?:
+# Next Steps?
 
 - fix bug
 - show a "there are no saved translations" message under translation history when applicable
