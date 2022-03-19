@@ -132,14 +132,16 @@ function addTranslationToLocalStorage(data) {
   return translations;
 }
 
-function displayTranslations(translations) {
+function displayTranslations(translationObjs) {
   //hide/show section.translation-history depending on length of translations array
-  const section = document.body.querySelector("section.translation-history");
-  if (!translations.length) return section.classList.add("display-none");
-  else section.classList.remove("display-none");
+  const translationHistorySection = document.body.querySelector(
+    "section.translation-history"
+  );
+  if (translationObjs.length === 0) return hide(translationHistorySection);
+  else unhide(translationHistorySection);
 
   //convert an array of translation objects into an HTML-displayable string
-  let translationsStr = translations
+  let translationsStr = translationObjs
     .map((t) => {
       return `
     <div class="translation">
@@ -157,6 +159,14 @@ function displayTranslations(translations) {
     .join("");
 
   document.body.querySelector(".translations").innerHTML = translationsStr;
+
+  //local functions:
+  function hide(ele) {
+    ele.classList.add("display-none");
+  }
+  function unhide(ele) {
+    ele.classList.remove("display-none");
+  }
 }
 
 function getTranslations() {
