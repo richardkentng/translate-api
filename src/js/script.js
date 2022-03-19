@@ -248,8 +248,8 @@ function insertToast(text, refElement) {
   const toast = document.body.lastChild;
   //position based on refElement:
   const { x: refX, bottom: refBottom } = refElement.getBoundingClientRect();
-  toast.style.left = refX + "px";
-  toast.style.top = refBottom - 8 + "px"; //subtract 8 to adjust for the whitespace around arrow
+  toast.style.left = refX + window.scrollX + "px";
+  toast.style.top = refBottom + window.scrollY - 8 + "px"; //subtract 8 to adjust for the whitespace around arrow
   //vanish after 3 seconds:
   setTimeout(() => {
     toast.remove();
