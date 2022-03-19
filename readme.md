@@ -111,9 +111,6 @@ function insertToast(text, refElement) {
 # Next Steps?:
 
 - fix bug
-- click on a custom toast to make it disappear
-  - stretch goal: make it disappear by fading upwards
-- press enter to translate (by default, pressing enter will result in a newline)
 - show a "there are no saved translations" message under translation history when applicable
 - language search:
   - Press enter to select first result, when searching languages
@@ -121,6 +118,10 @@ function insertToast(text, refElement) {
   - Stretch goal: prioritize pressing tab to select the language that was last selected based on the query
   - Unfocusing unselected lang prompts alert: After unfocusing a langauge input, if no valid language was selected, show alert to 'please select a valid language'
   - Stretch goal: Highlight text red (add text-red class). Add a one-time event listener to remove the text-red class upon focusing the input.
+- click on a custom toast to make it disappear
+  - stretch goal: make it disappear by fading upwards
+- press enter to translate (by default, pressing enter will result in a newline)
+- double-click input to highlight all characters inside input (makes for easy deletion on mobile devices when long languages are present)
 - fix repo description
 - be able to search for a language
 - hide keyboard shortcut hint for mobile devices
