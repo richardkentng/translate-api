@@ -110,6 +110,9 @@ function insertToast(text, refElement) {
 
 # Next Steps?:
 
+- fix bug
+- click on a custom toast to make it disappear
+  - stretch goal: make it disappear by fading upwards
 - press enter to translate (by default, pressing enter will result in a newline)
 - show a "there are no saved translations" message under translation history when applicable
 - language search:
