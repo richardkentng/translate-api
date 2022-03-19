@@ -53,19 +53,19 @@ async function onSubmitLangForm(e) {
 
   const langCode1 = getLangCode(langInput1.value);
   const langCode2 = getLangCode(langInput2.value);
-  if (!validLangCodes(langCode1, langCode2)) return;
+  if (!checkValidLangCodes(langCode1, langCode2)) return;
 
   saveLangs(); //save validated submitted langauges to local storage
 
-  loadingWheel.classList.remove("visually-hidden");
-  translateBtn.classList.add("disabled");
+  unhideElement(loadingWheel);
+  disableElement(translateBtn);
 
   const data = await translate(sourceTextarea.value, langCode1, langCode2);
   const translatedText = data.translated_text[data.to];
   targetTextarea.value = translatedText;
 
-  loadingWheel.classList.add("visually-hidden");
-  translateBtn.classList.remove("disabled");
+  hideElement(loadingWheel);
+  undisableElement(translateBtn);
 
   displayTranslations(addTranslationToLocalStorage(data));
 
@@ -78,7 +78,14 @@ async function onSubmitLangForm(e) {
     return lang_langCode[lang]; //get code
   }
 
-  function validLangCodes(langCode1, langCode2) {
+  function disableElement(element) {
+    element.classList.add("disabled");
+  }
+  function undisableElement(element) {
+    element.classList.remove("disabled");
+  }
+
+  function checkValidLangCodes(langCode1, langCode2) {
     if (langCode1 === undefined) {
       insertToast("Please select a valid language!.", langInput1);
       return false;
@@ -137,8 +144,9 @@ function displayTranslations(translationObjs) {
   const translationHistorySection = document.body.querySelector(
     "section.translation-history"
   );
-  if (translationObjs.length === 0) return hide(translationHistorySection);
-  else unhide(translationHistorySection);
+  if (translationObjs.length === 0)
+    return hideElement(translationHistorySection);
+  else unhideElement(translationHistorySection);
 
   //convert an array of translation objects into an HTML-displayable string
   let translationsStr = translationObjs
@@ -159,14 +167,6 @@ function displayTranslations(translationObjs) {
     .join("");
 
   document.body.querySelector(".translations").innerHTML = translationsStr;
-
-  //local functions:
-  function hide(ele) {
-    ele.classList.add("display-none");
-  }
-  function unhide(ele) {
-    ele.classList.remove("display-none");
-  }
 }
 
 function getTranslations() {
@@ -244,26 +244,14 @@ function populateLangDatalist() {
   document.body.querySelector("#lang-list").innerHTML = optionsHtml;
 }
 
-function insertToast(text, refElement) {
-  //construct and insert toast:
-  const toastStr = `
-  <div class="my-toast">
-    <i class="arrow-icon bi-caret-up-fill"></i>
-    <div class="box">
-      <i class="bang-icon bi-exclamation-square-fill"></i>
-      <span class="text">${text}</span>
-    </div>
-  </div>`;
-  document.body.insertAdjacentHTML("beforeend", toastStr);
-  const toast = document.body.lastChild;
-  //position based on refElement:
-  const { x: refX, bottom: refBottom } = refElement.getBoundingClientRect();
-  toast.style.left = refX + window.scrollX + "px";
-  toast.style.top = refBottom + window.scrollY - 8 + "px"; //subtract 8 to adjust for the whitespace around arrow
-  //vanish after 3 seconds:
-  setTimeout(() => {
-    toast.remove();
-  }, 3000);
+//======================================================/
+//-------------- UTILITY FUNCTIONS ---------------/
+//======================================================/
+function hideElement(ele) {
+  ele.classList.add("visually-hidden");
+}
+function unhideElement(ele) {
+  ele.classList.remove("visually-hidden");
 }
 
 function toTitleCase(str) {
@@ -286,4 +274,26 @@ function toTitleCase(str) {
     if (char === undefined) return false;
     return char.match(/[a-zA-Z]/);
   }
+}
+
+function insertToast(text, refElement) {
+  //construct and insert toast:
+  const toastStr = `
+  <div class="my-toast">
+    <i class="arrow-icon bi-caret-up-fill"></i>
+    <div class="box">
+      <i class="bang-icon bi-exclamation-square-fill"></i>
+      <span class="text">${text}</span>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML("beforeend", toastStr);
+  const toast = document.body.lastChild;
+  //position based on refElement:
+  const { x: refX, bottom: refBottom } = refElement.getBoundingClientRect();
+  toast.style.left = refX + window.scrollX + "px";
+  toast.style.top = refBottom + window.scrollY - 8 + "px"; //subtract 8 to adjust for the whitespace around arrow
+  //vanish after 3 seconds:
+  setTimeout(() => {
+    toast.remove();
+  }, 3000);
 }
