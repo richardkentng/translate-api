@@ -100,17 +100,35 @@ function insertToast(text, refElement) {
 }
 ```
 
+# Cleaner Code
+
+I always try to make my code more readable! Below is an example of how I refactored my code for more clarity. (The purpose of this code is to hide the translation-history-section when there are no translation-objects.)
+
+```
+  if (!translationObjs.length)
+    return translationHistorySection.classList.add("display-none");
+  else translationHistorySection.classList.remove("display-none");
+```
+
+```
+  if (translationObjs.length === 0) return hide(translationHistorySection);
+  else unhide(translationHistorySection);
+
+  function hide() {...}
+  function unhide() {...}
+```
+
 # Bugs
 
 - ~~Custom toast is mispositioned if window is scrolled~~
   - Reproduce Issue: Fill out both languages and enter some text to be translated. Be sure to MISTYPE a language (will result in toast popup). Scroll down a little bit. Press translate. Scroll back up to see the mispositioned toast.
   - Solution: added `window.scrollX` and `window.scrollY` to the toast's positioning
-- Cannot visibily delete last translation history item. (Refreshing the page makes it disappear.)
+- ~~Cannot visibily delete last translation history item. (Refreshing the page makes it disappear.)~~
   - Reproduce Issue: Have at least one translation item in history (You can do this by translating something.) Click the delete button. Notice how the translation item does not dissapear!
+  - Solution: I had accidentally deleted a `display-none` css rule that was required to show/hide the translation history section. I added it back to fix the issue.
 
 # Next Steps?
 
-- fix bug
 - show a "there are no saved translations" message under translation history when applicable
 - language search:
   - Press enter to select first result, when searching languages
