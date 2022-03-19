@@ -45,7 +45,7 @@ After a translation is processed, it will automatically be stored in local stora
   - ~~Update~~: There is no need to edit the text of past translations.
   - Delete: Remove select translations from local storage.
 
-# Coolest Achievement: Custom Toast
+# Cool Achievement: Custom Toast
 
 ![custom toast](./github_images/custom-toast.png)
 
@@ -100,15 +100,24 @@ function insertToast(text, refElement) {
 }
 ```
 
-# User Experience
+# Bugs
 
-![loading wheel](./github_images/evolution/loading.png)
+- ~~Custom toast is mispositioned if window is scrolled~~
+  - Reproduce Issue: Fill out both languages and enter some text to be translated. Be sure to MISTYPE a language (will result in toast popup). Scroll down a little bit. Press translate. Scroll back up to see the mispositioned toast.
+  - Solution: added `window.scrollX` and `window.scrollY` to the toast's positioning
+- Cannot visibily delete last translation history item. (Refreshing the page makes it disappear.)
+  - Reproduce Issue: Have at least one translation item in history (You can do this by translating something.) Click the delete button. Notice how the translation item does not dissapear!
 
-I love great user experience. In this case, I just added a simple loading wheel to inform users that their translation is processing. Otherwise, the user would get bored faster and leave!
+# Next Steps?:
 
-# Potential Features:
-
+- press enter to translate (by default, pressing enter will result in a newline)
 - show a "there are no saved translations" message under translation history when applicable
+- language search:
+  - Press enter to select first result, when searching languages
+  - Press tab to select the langauge that begins with the query
+  - Stretch goal: prioritize pressing tab to select the language that was last selected based on the query
+  - Unfocusing unselected lang prompts alert: After unfocusing a langauge input, if no valid language was selected, show alert to 'please select a valid language'
+  - Stretch goal: Highlight text red (add text-red class). Add a one-time event listener to remove the text-red class upon focusing the input.
 - fix repo description
 - be able to search for a language
 - hide keyboard shortcut hint for mobile devices
