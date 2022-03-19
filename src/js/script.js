@@ -51,10 +51,11 @@ document.body.addEventListener("keydown", (e) => {
 async function onSubmitLangForm(e) {
   e.preventDefault();
 
-  const langCode1 = getLangCode(langInput1);
-  const langCode2 = getLangCode(langInput2);
-  if (!langCode1 || !langCode2) return; //validation
-  saveLangs(); //save valid languages
+  const langCode1 = getLangCode(langInput1.value);
+  const langCode2 = getLangCode(langInput2.value);
+  if (!validLangCodes(langCode1, langCode2)) return;
+
+  saveLangs(); //save validated submitted langauges to local storage
 
   loadingWheel.classList.remove("visually-hidden");
   translateBtn.classList.add("disabled");
@@ -69,18 +70,25 @@ async function onSubmitLangForm(e) {
   displayTranslations(addTranslationToLocalStorage(data));
 
   sourceTextarea.focus();
-}
 
-function getLangCode(inputEl) {
-  //get the language from the input
-  const lang = inputEl.value;
-  const langCode = lang_langCode[lang]; //feed language into object to get the language code
-  if (langCode) return langCode; //if code exists, return it
+  //local functions
 
-  // else show popup:
-  insertToast(`Please select a valid language.`, inputEl); //inputEl is used for postion reference
-  inputEl.focus();
-  return false; //end the translation process
+  function getLangCode(lang) {
+    lang = toTitleCase(lang.trim()); //normalize
+    return lang_langCode[lang]; //get code
+  }
+
+  function validLangCodes(langCode1, langCode2) {
+    if (langCode1 === undefined) {
+      insertToast("Please select a valid language!.", langInput1);
+      return false;
+    }
+    if (langCode2 === undefined) {
+      insertToast("Please select a valid language!.", langInput2);
+      return false;
+    }
+    return true;
+  }
 }
 
 async function translate(text, sourceLang, targetLang) {
@@ -246,4 +254,26 @@ function insertToast(text, refElement) {
   setTimeout(() => {
     toast.remove();
   }, 3000);
+}
+
+function toTitleCase(str) {
+  str = str.toLowerCase();
+  const chars = str.split("");
+
+  chars.forEach((char, i) => {
+    if (isLetter(char)) {
+      const prevCharIsNOTaLetter = !isLetter(chars[i - 1]);
+      if (prevCharIsNOTaLetter) {
+        //capitalize current letter:
+        chars.splice(i, 1, char.toUpperCase());
+      }
+    }
+  });
+  return chars.join("");
+
+  //local function:
+  function isLetter(char) {
+    if (char === undefined) return false;
+    return char.match(/[a-zA-Z]/);
+  }
 }
